@@ -21,6 +21,22 @@ ps -eo pid,comm,%cpu --sort=-%cpu | head -n 6
 echo "Top 5 Processes by Memory Usage:"
 ps -eo pid,comm,%mem --sort=-%mem | head -n 6
 
+# Optional: Add more stats like OS version, uptime, load average, logged in users, failed login attempts, etc.
+echo "OS Version:"
+cat /etc/os-release | grep PRETTY_NAME | cut -d '=' -f2 | tr -d '"'
+
+echo "Uptime:"
+uptime | awk '{print $3, $4, $5}'
+
+echo "Load Average:"
+uptime | awk '{print $8, $9, $10}'
+
+echo "Logged in Users:"
+who | wc -l
+
+echo "Failed Login Attempts:"
+lastb | wc -l
+
 # TODO 1. List the Total CPU Usage (DONE)
 # TODO 2. List the Total Memory Usage (Free and Used including percentage) (DONE)
 # TODO 3. List the Total Disk Usage (Free and Used including percentage) (DONE)
